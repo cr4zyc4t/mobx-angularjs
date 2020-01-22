@@ -43,5 +43,10 @@
     "webpack": "4.41.5",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.10.1"
+  },
+  "dependencies": {
+    "angular": "^1.7.9",
+    "mobx": "5.15.2",
+    "mobx-angularjs": "1.6.1"
   }
 }
