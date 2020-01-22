@@ -1,7 +1,7 @@
-import BaseController from "../../BaseController";
+import NgController from "core/NgController";
 
 /* @ngInject */
-export default class HelloWorldController extends BaseController {
+export default class HelloWorldController extends NgController {
 	constructor($scope, $store) {
 		super();
 		this.$scope = $scope;

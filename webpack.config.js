@@ -13,6 +13,9 @@ module.exports = {
 		filename: 'static/js/[name].bundle.[hash:8].js',
 	},
 	mode: isProduction ? "production" : "development",
+	resolve: {
+		modules: [path.resolve(__dirname, 'src'), 'node_modules']
+	},
 	module: {
 		rules: [
 			{

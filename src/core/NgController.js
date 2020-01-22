@@ -1,4 +1,4 @@
-export default class BaseController {
+export default class NgController {
 	$onInit() { }
 	$onChanges(changesObj) { }
 	$doCheck() { }
