@@ -4,7 +4,7 @@
 	</span>
 	<ul class="filters">
 		<li ng-repeat='filter in ["All", "Active", "Completed"]'>
-			<a ng-class='{selected: filter===$ctrl.$store.filter}' ng-click="$ctrl.$store.setFilter(filter)">{{filter}}</a>
+			<a ng-class='{selected: filter===$ctrl.$store.filter}' ng-click="$ctrl.$store.changeFilter(filter)">{{filter}}</a>
 		</li>
 	</ul>
 	<button class="clear-completed" ng-click="$ctrl.$store.clearCompleted()">Clear completed</button>

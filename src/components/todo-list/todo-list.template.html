@@ -1,16 +1,18 @@
 <section class="main" mobx-autorun>
-	<input type="checkbox" id="toggle-all" class="toggle-all"
-		ng-checked="$ctrl.$store.activeTodos.length===0 && $ctrl.$store.todos.length > 0"
-		ng-changed="$ctrl.$store.toggleAll()">
+	<input type="checkbox" id="toggle-all" class="toggle-all" ng-model="$ctrl.isCheckAll"
+		ng-change="$ctrl.handleCheckAll()">
 	<label for="toggle-all"></label>
-	<ul class="todo-list" ng-repeat="todo in $ctrl.$store.todos">
-		<li ng-class='{completed: todo.isCompleted, editing: $ctrl.editingId === todo.id}'>
-			<div class="view">
-				<input type="checkbox" class="toggle">
+	<ul class="todo-list">
+		<li ng-repeat="todo in $ctrl.$store.showTodos"
+			ng-class='{completed: todo.isCompleted, editing: $ctrl.editingId === todo.id}'
+			ng-dblclick="$ctrl.setEditing(todo)">
+			<div class="view" ng-if="$ctrl.editingId !== todo.id">
+				<input type="checkbox" class="toggle" ng-model="todo.isCompleted">
 				<label>{{todo.title}}</label>
-				<button class="destroy"></button>
+				<button class="destroy" ng-click="todo.destroy()"></button>
 			</div>
-			<input type="text" class="edit">
+			<input type="text" class="edit" ng-blur="$ctrl.setEditing(null)" ng-model="$ctrl.editingTitle"
+				ng-keypress="$ctrl.handleEdit($event, todo)" ng-if="$ctrl.editingId === todo.id" autofocus>
 		</li>
 	</ul>
 </section>

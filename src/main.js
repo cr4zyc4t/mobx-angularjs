@@ -3,7 +3,6 @@
 import angular from "angular";
 import mobxAngular from "mobx-angularjs";
 import TodoApp, { Filter } from "./models/TodoApp";
-import { autorun, toJS } from "mobx";
 import "./style.scss";
 import AddTodoForm from "components/add-todo-form/add-todo-form.component";
 import TodoList from "components/todo-list/todo-list.component";
@@ -15,9 +14,6 @@ angular.module("myApp", [mobxAngular])
 	.component("todoFilter", TodoFilter)
 	.factory("$store", () => {
 		const store = new TodoApp(Filter.All, []);
-		autorun(() => {
-			console.log(toJS(store));
-		});
 		return store;
 	});
 

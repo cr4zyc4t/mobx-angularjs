@@ -21,7 +21,8 @@ module.exports = {
 	"rules": {
 		"indent": [
 			"error",
-			"tab"
+			"tab",
+			{ "SwitchCase": 1 }
 		],
 		"angular/file-name": "off",
 		"no-console": "off",

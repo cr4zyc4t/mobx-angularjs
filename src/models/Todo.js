@@ -18,6 +18,11 @@ export default class Todo extends EventEmitter {
 	}
 
 	@action
+	setTitle(title) {
+		this.title = title;
+	}
+
+	@action
 	toggle(isCompleted) {
 		if (isCompleted !== undefined) {
 			this.isCompleted = isCompleted;

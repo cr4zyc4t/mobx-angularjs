@@ -45,6 +45,10 @@ export default class TodoApp {
 	toggleAll(isChecked) {
 		this.todos.forEach(todo => todo.isCompleted = isChecked);
 	}
+	@action
+	clearCompleted() {
+		this.todos.replace(this.activeTodos);
+	}
 
 	@computed
 	get completedTodos() {
@@ -59,12 +63,12 @@ export default class TodoApp {
 	@computed
 	get showTodos() {
 		switch (this.filter) {
-		case Filter.Active:
-			return this.activeTodos;
-		case Filter.Completed:
-			return this.completedTodos;
-		default:
-			return this.todos;
+			case Filter.Active:
+				return this.activeTodos;
+			case Filter.Completed:
+				return this.completedTodos;
+			default:
+				return this.todos;
 		}
 	}
 }
