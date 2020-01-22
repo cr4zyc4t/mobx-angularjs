@@ -60,7 +60,14 @@ module.exports = {
 					},
 				},
 			}),
-			new OptimizeCSSAssetsPlugin({}),
+			new OptimizeCSSAssetsPlugin({
+				cssProcessorOptions: {
+					map: {
+						inline: false, // set to false if you want CSS source maps
+						annotation: true,
+					},
+				},
+			}),
 		],
 	},
 	resolve: {
