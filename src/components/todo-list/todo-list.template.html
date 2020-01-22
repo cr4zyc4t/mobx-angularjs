@@ -1,0 +1,16 @@
+<section class="main" mobx-autorun>
+	<input type="checkbox" id="toggle-all" class="toggle-all"
+		ng-checked="$ctrl.$store.activeTodos.length===0 && $ctrl.$store.todos.length > 0"
+		ng-changed="$ctrl.$store.toggleAll()">
+	<label for="toggle-all"></label>
+	<ul class="todo-list" ng-repeat="todo in $ctrl.$store.todos">
+		<li ng-class='{completed: todo.isCompleted, editing: $ctrl.editingId === todo.id}'>
+			<div class="view">
+				<input type="checkbox" class="toggle">
+				<label>{{todo.title}}</label>
+				<button class="destroy"></button>
+			</div>
+			<input type="text" class="edit">
+		</li>
+	</ul>
+</section>

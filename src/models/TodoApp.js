@@ -5,7 +5,7 @@ export const Filter = {
 	All: "All",
 	Active: "Active",
 	Completed: "Completed",
-}
+};
 
 export default class TodoApp {
 	@observable filter;
@@ -20,9 +20,9 @@ export default class TodoApp {
 	addTodo(title) {
 		const newTodo = new Todo(title);
 		newTodo.once(Todo.EVENT_DESTROY, () => {
-			this.deleteTodo(newTodo)
-		})
-		this.todos.push(newTodo)
+			this.deleteTodo(newTodo);
+		});
+		this.todos.push(newTodo);
 	}
 
 	// @action
@@ -43,28 +43,28 @@ export default class TodoApp {
 
 	@action
 	toggleAll(isChecked) {
-		this.todos.forEach(todo => todo.isCompleted = isChecked)
+		this.todos.forEach(todo => todo.isCompleted = isChecked);
 	}
 
 	@computed
 	get completedTodos() {
-		return this.todos.filter(todo => todo.isCompleted)
+		return this.todos.filter(todo => todo.isCompleted);
 	}
 
 	@computed
 	get activeTodos() {
-		return this.todos.filter(todo => !todo.isCompleted)
+		return this.todos.filter(todo => !todo.isCompleted);
 	}
 
 	@computed
 	get showTodos() {
 		switch (this.filter) {
-			case Filter.Active:
-				return this.activeTodos;
-			case Filter.Completed:
-				return this.completedTodos;
-			default:
-				return this.todos;
+		case Filter.Active:
+			return this.activeTodos;
+		case Filter.Completed:
+			return this.completedTodos;
+		default:
+			return this.todos;
 		}
 	}
 }

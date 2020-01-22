@@ -1,12 +1,24 @@
-import angular from "angular"
-import HelloWorld from "./components/hello-world"
-import TodoApp, { Filter } from "./models/TodoApp"
+/* eslint-disable angular/function-type */
+/* eslint-disable angular/document-service */
+import angular from "angular";
+import mobxAngular from "mobx-angularjs";
+import TodoApp, { Filter } from "./models/TodoApp";
+import { autorun, toJS } from "mobx";
+import "./style.scss";
+import AddTodoForm from "components/add-todo-form/add-todo-form.component";
+import TodoList from "components/todo-list/todo-list.component";
+import TodoFilter from "components/todo-filter/todo-filter.component";
 
-angular.module("myApp", [])
-	.component("helloWorld", HelloWorld)
+angular.module("myApp", [mobxAngular])
+	.component("addTodoForm", AddTodoForm)
+	.component("todoList", TodoList)
+	.component("todoFilter", TodoFilter)
 	.factory("$store", () => {
-		const store = new TodoApp(Filter.All, [])
-		return store
-	})
+		const store = new TodoApp(Filter.All, []);
+		autorun(() => {
+			console.log(toJS(store));
+		});
+		return store;
+	});
 
-angular.bootstrap(document.getElementById("root"), ["myApp"])
+angular.bootstrap(document.getElementById("root"), ["myApp"]);

@@ -1,0 +1,11 @@
+<footer class="footer">
+	<span class="todo-count">
+		<strong>{{$ctrl.$store.activeTodos.length}}</strong> item{{$ctrl.$store.activeTodos.length > 1 ? "s":""}} left
+	</span>
+	<ul class="filters">
+		<li ng-repeat='filter in ["All", "Active", "Completed"]'>
+			<a ng-class='{selected: filter===$ctrl.$store.filter}' ng-click="$ctrl.$store.setFilter(filter)">{{filter}}</a>
+		</li>
+	</ul>
+	<button class="clear-completed" ng-click="$ctrl.$store.clearCompleted()">Clear completed</button>
+</footer>
