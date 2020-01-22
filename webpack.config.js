@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const outputDir = path.join(__dirname, "build");
 const isProduction = process.env.NODE_ENV === "production";
@@ -9,7 +10,7 @@ module.exports = {
 	entry: path.join(__dirname, 'src/main.js'),
 	output: {
 		path: outputDir,
-		filename: '[name].bundle.[hash:8].js',
+		filename: 'static/js/[name].bundle.[hash:8].js',
 	},
 	mode: isProduction ? "production" : "development",
 	module: {
@@ -34,16 +35,31 @@ module.exports = {
 					{
 						test: /\.css$/,
 						use: [
-							'style-loader',
+							!isProduction && 'style-loader',
+							isProduction && {
+								loader: MiniCssExtractPlugin.loader,
+								options: {
+									esModule: true,
+								},
+							},
 							'css-loader',
-						],
+							{
+								loader: 'sass-loader',
+								options: {
+									implementation: require('sass'),
+									sassOptions: {
+										fiber: true,
+									},
+								},
+							},
+						].filter(Boolean),
 					},
 					{
 						test: /\.(png|svg|jpg|gif)$/,
 						use: {
 							loader: 'file-loader',
 							options: {
-								name: '[name].[hash:8].[ext]',
+								name: 'static/img/[name].[hash:8].[ext]',
 							},
 						},
 
@@ -53,7 +69,7 @@ module.exports = {
 						use: {
 							loader: 'file-loader',
 							options: {
-								name: '[name].[hash:8].[ext]',
+								name: 'static/font/[name].[hash:8].[ext]',
 							},
 						},
 					},
@@ -63,7 +79,7 @@ module.exports = {
 						use: {
 							loader: 'file-loader',
 							options: {
-								name: '[name].[hash:8].[ext]',
+								name: 'static/other/[name].[hash:8].[ext]',
 							},
 						},
 					},
@@ -72,24 +88,28 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new CleanWebpackPlugin(),
+		isProduction && new CleanWebpackPlugin(),
+		isProduction && new MiniCssExtractPlugin({
+			filename: 'static/css/[name].[hash:8].css',
+			chunkFilename: 'static/css/[id].[hash:8].css',
+		}),
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, "public/index.html"),
-			filename: "index.html"
-		})
-	],
+		}),
+
+	].filter(Boolean),
 	stats: {
 		assets: true,
-    cached: false,
-    children: false,
-    chunks: false,
-    chunkModules: false,
-    colors: true,
-    hash: true,
-    modules: false,
-    reasons: false,
-    source: false,
-    timings: true,
+		cached: false,
+		children: false,
+		chunks: false,
+		chunkModules: false,
+		colors: true,
+		hash: true,
+		modules: false,
+		reasons: false,
+		source: false,
+		timings: true,
 		version: false,
 		entrypoints: false,
 	},
